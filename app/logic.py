@@ -13,7 +13,7 @@ def start_timer(session_id: str):
 def end_timer(session_id: str):
     with lock:
         if session_id in timers:
-            start_time = timers[session_id]
+            start_time = timers.pop(session_id)
             return time.time() - start_time
         else:
             return None
