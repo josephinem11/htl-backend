@@ -10,7 +10,7 @@ def start_timer_view(request):
     logic.start_timer(session_id)
     db_handle, client = utils.get_db_handle(
         db_name=settings.MONGO_DB_NAME,
-        uri=settings.MONGO_DB_NAME
+        uri=settings.MONGO_DB_URL
     )
     collection = db_handle['data_collection']
     collection.insert_one({
@@ -30,7 +30,7 @@ def calculate_score_view(request):
     }
     db_handle, client = utils.get_db_handle(
         db_name=settings.MONGO_DB_NAME,
-        uri=settings.MONGO_DB_NAME
+        uri=settings.MONGO_DB_URL
     )
     score = logic.calculate_score(int(response_data['correct']), int(response_data['total']))
     collection = db_handle['data_collection']
@@ -48,7 +48,7 @@ def end_timer_view(request):
 
     db_handle, client = utils.get_db_handle(
         db_name=settings.MONGO_DB_NAME,
-        uri=settings.MONGO_DB_NAME
+        uri=settings.MONGO_DB_URL
     )
 
     collection = db_handle['data_collection']
