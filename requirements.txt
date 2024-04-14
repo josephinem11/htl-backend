@@ -4,6 +4,7 @@ dataclasses==0.6
 Django==5.0.4
 djongo==1.2.31
 dnspython==2.6.1
+django-cors-headers
 pip===23.2.1
 pymongo==4.6.3
 sqlparse==0.4.4

@@ -19,6 +19,7 @@ MONGO_DB_URL = os.getenv('MONGO_DB_URL')
 
 INSTALLED_APPS = [
     'app',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -28,6 +29,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -37,6 +39,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    os.getenv('FRONTEND_URL')
+]
 ROOT_URLCONF = 'htl_be.urls'
 
 TEMPLATES = [
