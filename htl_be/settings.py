@@ -15,6 +15,7 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split("
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 MONGO_DB_NAME = 'admin'
+MONGO_DB_URL = os.getenv('MONGO_DB_URL')
 
 INSTALLED_APPS = [
     'app',

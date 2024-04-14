@@ -20,7 +20,8 @@ def end_timer(session_id: str):
 
 
 def calculate_score(correct, total):
-    return correct / total * 100
+    with lock:
+        return correct / total * 100
 
 
 
