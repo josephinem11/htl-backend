@@ -7,8 +7,8 @@ lock = threading.Lock()
 
 def start_timer(session_id: str):
     with lock:
-        print(f"Timer started for {session_id}: {timers[session_id]}")
         timers[session_id] = time.time()
+        print(f"Timer started for {session_id}: {timers[session_id]}")
 
 
 def end_timer(session_id: str):
