@@ -1,4 +1,5 @@
 from django.apps import apps
+from datetime import datetime
 from django.http import JsonResponse
 from . import logic
 from . import utils
@@ -7,7 +8,6 @@ from django.conf import settings
 
 def start_timer_view(request):
     session_id = request.GET.get('session_id')
-    logic.start_timer(session_id)
     db_handle, client = utils.get_db_handle(
         db_name=settings.MONGO_DB_NAME,
         uri=settings.MONGO_DB_URL
@@ -17,7 +17,8 @@ def start_timer_view(request):
         'session_id': session_id,
         'score': 0,
         'completed': False,
-        'time_taken': 0
+        'time_started': datetime.now(),
+        'time_ended': None
     })
     return JsonResponse({'status': 'success'})
 
@@ -44,7 +45,6 @@ def calculate_score_view(request):
 
 def end_timer_view(request):
     session_id = request.GET.get('session_id')
-    time_taken = logic.end_timer(session_id)
 
     db_handle, client = utils.get_db_handle(
         db_name=settings.MONGO_DB_NAME,
@@ -54,9 +54,9 @@ def end_timer_view(request):
     collection = db_handle['data_collection']
     collection.update_one(
         {'session_id': session_id},  # Query document
-        {'$set': {'time_taken': time_taken}},  # Update operation
+        {'$set': {'time_ended': datetime.now()}},  # Update operation
         upsert=False  # Do not insert a new document if one doesn't exist
     )
     client.close()
-    return JsonResponse({'time_taken': time_taken})
+    return JsonResponse({'status': "success"})
 
